@@ -24,6 +24,7 @@ body {
   background: var(--bg);
   line-height: 1.5;
   padding-top: 126px;
+  overflow-x: hidden;
 }
 
 img {
@@ -575,6 +576,182 @@ section[id] {
 
   .contact {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    padding-top: 154px;
+  }
+
+  .container {
+    width: min(1100px, 94vw);
+  }
+
+  .topline__inner {
+    gap: 0.25rem;
+    text-align: center;
+  }
+
+  .topline p,
+  .topline a {
+    width: 100%;
+  }
+
+  .topbar {
+    inset: 56px 0 auto 0;
+  }
+
+  .topbar__inner {
+    min-height: 92px;
+    gap: 0.65rem;
+    padding: 0.7rem 0;
+    justify-content: flex-start;
+  }
+
+  .topbar__nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.45rem;
+    width: 100%;
+  }
+
+  .topbar__nav a {
+    text-align: center;
+    padding: 0.5rem 0.35rem;
+  }
+
+  .topbar__brand {
+    align-self: flex-start;
+    margin-bottom: 0.1rem;
+  }
+
+  .hero {
+    min-height: 0;
+  }
+
+  .hero__content {
+    padding: 2rem 0 2.2rem;
+  }
+
+  .hero__content--split {
+    gap: 0.9rem;
+  }
+
+  .hero__cta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero__cta .btn,
+  .modal__action,
+  .lead-form .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .hero__panel {
+    padding: 0.9rem;
+  }
+
+  .section {
+    padding: 2.4rem 0;
+  }
+
+  .feature-strip {
+    margin-top: -0.6rem;
+  }
+
+  .feature-strip__grid,
+  .sale-grid,
+  .gallery,
+  .intro__cards,
+  .process__grid,
+  .contact {
+    grid-template-columns: 1fr;
+  }
+
+  .sale-grid,
+  .gallery,
+  .intro__cards,
+  .process__grid {
+    gap: 0.8rem;
+  }
+
+  .usage-guide__video {
+    max-width: 100%;
+  }
+
+  .modal {
+    padding: 0.75rem;
+    align-items: end;
+  }
+
+  .modal__card {
+    width: 100%;
+    border-radius: 16px 16px 0 0;
+    padding: 1rem 1rem 1.1rem;
+  }
+
+  #trang-chu,
+  section[id] {
+    scroll-margin-top: 140px;
+  }
+}
+
+@media (max-width: 420px) {
+  body {
+    padding-top: 150px;
+  }
+
+  .topline {
+    font-size: 0.82rem;
+  }
+
+  .topbar__inner {
+    min-height: 90px;
+  }
+
+  .topbar__nav {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero__content {
+    padding: 1.8rem 0 2rem;
+  }
+
+  h1 {
+    font-size: clamp(1.7rem, 8vw, 2.2rem);
+  }
+
+  h2 {
+    font-size: 1.35rem;
+  }
+
+  .btn {
+    padding: 0.72rem 0.9rem;
+  }
+
+  .lead-form,
+  .sale-card,
+  .feature-strip__grid article,
+  .intro__cards article,
+  .process__grid article {
+    padding: 0.9rem;
+  }
+
+  .contact {
+    gap: 1rem;
+  }
+
+  .footer {
+    padding: 0.85rem 0;
+    font-size: 0.92rem;
+  }
+
+  #trang-chu,
+  section[id] {
+    scroll-margin-top: 136px;
   }
 }
 
