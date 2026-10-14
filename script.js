@@ -24,9 +24,31 @@ const salePrograms = [
 const saleCards = document.getElementById("sale-cards");
 const planSelect = document.getElementById("plan");
 const gallery = document.getElementById("gallery");
+const galleryModal = document.getElementById("gallery-modal");
+const galleryModalImage = document.getElementById("gallery-modal-image");
+const galleryPrevButton = document.getElementById("gallery-prev");
+const galleryNextButton = document.getElementById("gallery-next");
+const galleryCloseButton = document.getElementById("gallery-close");
 const pageSections = Array.from(document.querySelectorAll("[data-page]"));
 const navLinks = Array.from(document.querySelectorAll("[data-nav-link]"));
 const availablePages = new Set(["trang-chu", "gioi-thieu", "huong-dan", "lien-he"]);
+const galleryImages = [
+  "Images/hero-bg.jpg",
+  "Images/gallery-02.jpg",
+  "Images/gallery-03.jpg",
+  "Images/gallery-04.jpg",
+  "Images/gallery-05.jpg",
+  "Images/gallery-06.jpg",
+  "Images/gallery-07.jpg",
+  "Images/gallery-08.jpg",
+  "Images/gallery-09.jpg",
+  "Images/gallery-10.jpg",
+  "Images/gallery-11.jpg",
+  "Images/gallery-12.jpg",
+  "Images/gallery-13.jpg"
+];
+
+let activeGalleryIndex = 0;
 
 function renderSales() {
   if (!saleCards || !planSelect) return;
@@ -51,25 +73,84 @@ function renderSales() {
 function renderGallery() {
   if (!gallery) return;
 
-  // Keep gallery order stable after renaming files from numeric to role-based names.
-  const images = [
-    "Images/hero-bg.jpg",
-    "Images/gallery-02.jpg",
-    "Images/gallery-03.jpg",
-    "Images/gallery-04.jpg",
-    "Images/gallery-05.jpg",
-    "Images/gallery-06.jpg",
-    "Images/gallery-07.jpg",
-    "Images/gallery-08.jpg",
-    "Images/gallery-09.jpg",
-    "Images/gallery-10.jpg",
-    "Images/gallery-11.jpg",
-    "Images/gallery-12.jpg",
-    "Images/gallery-13.jpg"
-  ];
-  gallery.innerHTML = images
-    .map((src, index) => `<img src="${src}" alt="Ảnh sản phẩm HB101 số ${index + 1}" loading="lazy" />`)
+  gallery.innerHTML = galleryImages
+    .map((src, index) => `<img src="${src}" alt="Ảnh sản phẩm HB101 số ${index + 1}" loading="lazy" data-gallery-index="${index}" />`)
     .join("");
+}
+
+function handleGalleryLightbox() {
+  if (
+    !gallery
+    || !galleryModal
+    || !galleryModalImage
+    || !galleryPrevButton
+    || !galleryNextButton
+    || !galleryCloseButton
+  ) {
+    return;
+  }
+
+  const updateLightboxImage = (index) => {
+    const safeIndex = (index + galleryImages.length) % galleryImages.length;
+    activeGalleryIndex = safeIndex;
+    galleryModalImage.src = galleryImages[safeIndex];
+    galleryModalImage.alt = `Ảnh khách hàng HB101 số ${safeIndex + 1}`;
+  };
+
+  const openLightbox = (index) => {
+    updateLightboxImage(index);
+    galleryModal.classList.add("is-open");
+    galleryModal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeLightbox = () => {
+    galleryModal.classList.remove("is-open");
+    galleryModal.setAttribute("aria-hidden", "true");
+    galleryModalImage.src = "";
+    document.body.style.overflow = "";
+  };
+
+  gallery.addEventListener("click", (event) => {
+    const targetImage = event.target.closest("img[data-gallery-index]");
+    if (!targetImage) return;
+
+    const index = Number(targetImage.dataset.galleryIndex);
+    if (!Number.isInteger(index)) return;
+    openLightbox(index);
+  });
+
+  galleryPrevButton.addEventListener("click", () => {
+    updateLightboxImage(activeGalleryIndex - 1);
+  });
+
+  galleryNextButton.addEventListener("click", () => {
+    updateLightboxImage(activeGalleryIndex + 1);
+  });
+
+  galleryCloseButton.addEventListener("click", closeLightbox);
+
+  galleryModal.addEventListener("click", (event) => {
+    if (event.target === galleryModal) {
+      closeLightbox();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (!galleryModal.classList.contains("is-open")) return;
+
+    if (event.key === "Escape") {
+      closeLightbox();
+    }
+
+    if (event.key === "ArrowLeft") {
+      updateLightboxImage(activeGalleryIndex - 1);
+    }
+
+    if (event.key === "ArrowRight") {
+      updateLightboxImage(activeGalleryIndex + 1);
+    }
+  });
 }
 
 function handleForm() {
@@ -190,5 +271,6 @@ renderGallery();
 handleForm();
 handleCompactNavigation();
 handleGuideModal();
+handleGalleryLightbox();
 routeToHash();
 

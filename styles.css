@@ -356,6 +356,14 @@ section[id] {
   border-radius: 14px;
   padding: 1rem;
   box-shadow: 0 10px 20px rgba(30, 60, 32, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.sale-card:hover,
+.sale-card:focus-within {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 28px rgba(30, 60, 32, 0.16);
+  border-color: #b5d0b8;
 }
 
 .sale-card h3 {
@@ -389,6 +397,13 @@ section[id] {
   aspect-ratio: 1 / 1;
   object-fit: cover;
   border: 1px solid var(--border);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gallery img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 22px rgba(20, 41, 22, 0.22);
 }
 
 .usage-guide ul {
@@ -536,6 +551,72 @@ section[id] {
 .modal__action {
   display: inline-block;
   margin-top: 0.5rem;
+}
+
+.gallery-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem 3.8rem;
+  background: rgba(14, 17, 15, 0.84);
+}
+
+.gallery-modal.is-open {
+  display: flex;
+}
+
+.gallery-modal__figure {
+  margin: 0;
+  max-width: min(900px, 88vw);
+  max-height: min(82vh, 900px);
+}
+
+.gallery-modal__figure img {
+  width: 100%;
+  max-height: min(82vh, 900px);
+  object-fit: contain;
+  border-radius: 14px;
+  border: 1px solid rgba(222, 235, 223, 0.55);
+  box-shadow: 0 22px 44px rgba(0, 0, 0, 0.45);
+}
+
+.gallery-modal__nav,
+.gallery-modal__close {
+  position: absolute;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 1.45rem;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.gallery-modal__nav:hover,
+.gallery-modal__close:hover {
+  background: rgba(255, 255, 255, 0.32);
+  transform: scale(1.05);
+}
+
+.gallery-modal__nav--prev {
+  left: 1.1rem;
+}
+
+.gallery-modal__nav--next {
+  right: 1.1rem;
+}
+
+.gallery-modal__close {
+  top: 1rem;
+  right: 1rem;
 }
 
 @media (max-width: 860px) {
@@ -691,6 +772,34 @@ section[id] {
     width: 100%;
     border-radius: 16px 16px 0 0;
     padding: 1rem 1rem 1.1rem;
+  }
+
+  .gallery-modal {
+    padding: 1rem 0.7rem 1.2rem;
+  }
+
+  .gallery-modal__figure {
+    max-width: 100%;
+  }
+
+  .gallery-modal__nav,
+  .gallery-modal__close {
+    width: 40px;
+    height: 40px;
+    font-size: 1.25rem;
+  }
+
+  .gallery-modal__nav--prev {
+    left: 0.45rem;
+  }
+
+  .gallery-modal__nav--next {
+    right: 0.45rem;
+  }
+
+  .gallery-modal__close {
+    top: 0.45rem;
+    right: 0.45rem;
   }
 
   #trang-chu,
